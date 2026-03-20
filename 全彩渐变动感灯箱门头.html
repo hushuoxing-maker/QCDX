@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全彩渐变动感灯箱门头提示词生成器 · 分开排版</title>
+<title>全彩渐变动感灯箱门头提示词生成器 · 随机造型版</title>
 <style>
   body {
     font-family: "Microsoft YaHei", sans-serif;
@@ -97,7 +97,7 @@
 </style>
 </head>
 <body>
-<h1>全彩渐变动感灯箱门头提示词生成器 · 分开排版</h1>
+<h1>全彩渐变动感灯箱门头提示词生成器 · 随机造型版</h1>
 
 <div class="input-group">
   <input type="text" id="industryInput" placeholder="请输入门头店铺行业，例如：拉面馆">
@@ -107,6 +107,19 @@
 <div class="prompt-list" id="promptList"></div>
 
 <script>
+// 随机生成造型和店铺大小描述
+function randomShape() {
+  const shapes = ["弧形门头","直线平面","阶梯式层叠","波浪造型","悬浮立体","圆角矩形","斜切造型","三段分层","动态折线","几何组合"];
+  return shapes[Math.floor(Math.random()*shapes.length)];
+}
+
+function randomSize() {
+  const widths = ["3米","4米","5米","6米","7米","8米"];
+  const heights = ["2米","2.5米","3米","3.5米"];
+  return `宽度${widths[Math.floor(Math.random()*widths.length)]} × 高度${heights[Math.floor(Math.random()*heights.length)]}`;
+}
+
+// 随机生成唯一标识
 function randomSuffix() {
   const adjectives = ["炫彩","流光","未来感","光影","动感","高亮","渐变","视觉冲击","流动","现代"];
   const nouns = ["方案","设计","展示","效果","创意","风格","造型","布局","灯箱","视觉"];
@@ -122,8 +135,10 @@ function generatePrompts() {
   promptList.innerHTML = "";
 
   for(let i=1; i<=20; i++) {
+    const shape = randomShape();
+    const size = randomSize();
     const uniqueTag = randomSuffix();
-    const promptText = `白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无遮挡，全彩渐变动感灯箱门头，整体动感灯箱，彩色渐变流光效果，高亮均匀发光，行业：${industry}，落地材质：全彩动感灯箱、渐变灯箱面板、LED渐变光源、铝型材边框、亚克力面板、金属包边，文字创意：品牌店名+主营品类，现代清晰字体，灯光：日间灯箱整体渐变发光、色彩流动、高亮醒目，画质：8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，方案标识：${uniqueTag}`;
+    const promptText = `白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无遮挡，全彩渐变动感灯箱门头，整体动感灯箱，彩色渐变流光效果，高亮均匀发光，行业：${industry}，造型：${shape}，店铺大小：${size}，落地材质：全彩动感灯箱、渐变灯箱面板、LED渐变光源、铝型材边框、亚克力面板、金属包边，文字创意：品牌店名+主营品类，现代清晰字体，灯光：日间灯箱整体渐变发光、色彩流动、高亮醒目，画质：8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，方案标识：${uniqueTag}`;
 
     const div = document.createElement("div");
     div.className = "prompt-item";
