@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全彩渐变动感灯箱门头提示词生成器</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #fff;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    opacity: 0.9;
+  }
+  .prompt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .prompt-item {
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .prompt-item span {
+    font-weight: bold;
+    color: #ffd700;
+  }
+</style>
+</head>
+<body>
+<h1>全彩渐变动感灯箱门头提示词生成器</h1>
+<div class="input-group">
+  <input type="text" id="industryInput" placeholder="请输入门头店铺行业，例如：拉面馆">
+  <button onclick="generatePrompts()">生成提示词</button>
+</div>
+<div class="prompt-list" id="promptList"></div>
+
+<script>
+function generatePrompts() {
+  const industry = document.getElementById("industryInput").value || "示例行业";
+  const promptList = document.getElementById("promptList");
+  promptList.innerHTML = "";
+
+  for(let i = 1; i <= 20; i++) {
+    const prompt = `白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无遮挡，全彩渐变动感灯箱门头，整体动感灯箱，彩色渐变流光效果，高亮均匀发光，行业：${industry}，落地材质：全彩动感灯箱、渐变灯箱面板、LED渐变光源、铝型材边框、亚克力面板、金属包边，文字创意：品牌店名+主营品类，现代清晰字体，灯光：日间灯箱整体渐变发光、色彩流动、高亮醒目，画质：8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，方案编号${i}`;
+    
+    const div = document.createElement("div");
+    div.className = "prompt-item";
+    div.textContent = prompt;
+    promptList.appendChild(div);
+  }
+}
+</script>
+</body>
+</html>
