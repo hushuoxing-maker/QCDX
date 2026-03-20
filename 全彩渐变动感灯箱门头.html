@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全彩渐变动感灯箱门头提示词生成器 · 无限刷新</title>
+<title>全彩渐变动感灯箱门头提示词生成器 · 分开排版</title>
 <style>
   body {
     font-family: "Microsoft YaHei", sans-serif;
@@ -53,7 +53,7 @@
   .prompt-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -76,26 +76,28 @@
     0% {background-position: 0%;}
     100% {background-position: 200%;}
   }
+  .copy-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+  }
   .copy-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
     padding: 5px 12px;
     border: none;
     border-radius: 6px;
-    background: rgba(255,255,255,0.2);
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
     color: #fff;
     cursor: pointer;
     font-size: 12px;
     transition: 0.3s;
   }
   .copy-btn:hover {
-    background: rgba(255,255,255,0.4);
+    opacity: 0.9;
   }
 </style>
 </head>
 <body>
-<h1>全彩渐变动感灯箱门头提示词生成器 · 无限刷新</h1>
+<h1>全彩渐变动感灯箱门头提示词生成器 · 分开排版</h1>
 
 <div class="input-group">
   <input type="text" id="industryInput" placeholder="请输入门头店铺行业，例如：拉面馆">
@@ -105,13 +107,12 @@
 <div class="prompt-list" id="promptList"></div>
 
 <script>
-// 随机化生成序号或创意元素，确保每次不同
 function randomSuffix() {
-  const adjectives = ["炫彩", "流光", "未来感", "光影", "动感", "高亮", "渐变", "视觉冲击", "流动", "现代"];
-  const nouns = ["方案", "设计", "展示", "效果", "创意", "风格", "造型", "布局", "灯箱", "视觉"];
-  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-  const noun = nouns[Math.floor(Math.random() * nouns.length)];
-  const randNum = Math.floor(Math.random() * 1000);
+  const adjectives = ["炫彩","流光","未来感","光影","动感","高亮","渐变","视觉冲击","流动","现代"];
+  const nouns = ["方案","设计","展示","效果","创意","风格","造型","布局","灯箱","视觉"];
+  const adj = adjectives[Math.floor(Math.random()*adjectives.length)];
+  const noun = nouns[Math.floor(Math.random()*nouns.length)];
+  const randNum = Math.floor(Math.random()*1000);
   return `${adj}${noun}${randNum}`;
 }
 
@@ -122,23 +123,27 @@ function generatePrompts() {
 
   for(let i=1; i<=20; i++) {
     const uniqueTag = randomSuffix();
-    const prompt = `白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无遮挡，全彩渐变动感灯箱门头，整体动感灯箱，彩色渐变流光效果，高亮均匀发光，行业：${industry}，落地材质：全彩动感灯箱、渐变灯箱面板、LED渐变光源、铝型材边框、亚克力面板、金属包边，文字创意：品牌店名+主营品类，现代清晰字体，灯光：日间灯箱整体渐变发光、色彩流动、高亮醒目，画质：8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，方案标识：${uniqueTag}`;
+    const promptText = `白天自然光，门头正立面，完整展示，正面平视视角，无透视畸变，无遮挡，全彩渐变动感灯箱门头，整体动感灯箱，彩色渐变流光效果，高亮均匀发光，行业：${industry}，落地材质：全彩动感灯箱、渐变灯箱面板、LED渐变光源、铝型材边框、亚克力面板、金属包边，文字创意：品牌店名+主营品类，现代清晰字体，灯光：日间灯箱整体渐变发光、色彩流动、高亮醒目，画质：8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考，方案标识：${uniqueTag}`;
 
     const div = document.createElement("div");
     div.className = "prompt-item";
-    div.textContent = prompt;
+    div.textContent = promptText;
+
+    const copyContainer = document.createElement("div");
+    copyContainer.className = "copy-container";
 
     const copyBtn = document.createElement("button");
     copyBtn.className = "copy-btn";
     copyBtn.textContent = "复制";
     copyBtn.onclick = () => {
-      navigator.clipboard.writeText(prompt);
+      navigator.clipboard.writeText(promptText);
       copyBtn.textContent = "已复制";
-      setTimeout(() => copyBtn.textContent = "复制", 1500);
-    }
+      setTimeout(()=>copyBtn.textContent="复制",1500);
+    };
 
-    div.appendChild(copyBtn);
+    copyContainer.appendChild(copyBtn);
     promptList.appendChild(div);
+    promptList.appendChild(copyContainer);
   }
 }
 </script>
